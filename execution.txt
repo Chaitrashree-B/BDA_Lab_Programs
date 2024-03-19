@@ -1,0 +1,5 @@
+start-all.sh
+hdfs dfs -put input.txt
+hadoop jar /usr/local/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.3.4.jar -files ./mapper2.py,./reducer2.py
+ -mapper "python3 mapper2.py" -reducer "python3 reducer2.py" -input /input2.txt -output /output14
+stop-all.sh

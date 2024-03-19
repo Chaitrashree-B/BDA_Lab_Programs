@@ -1,0 +1,23 @@
+start-all.sh
+nano spark.txt
+hdfs dfs -put spark.txt /
+spark-shell
+
+var linesRDD = sc.textFile("hdfs://localhost:54310/spark.txt")
+linesRDD.collect
+
+var wordsRDD = linesRDD.flatMap(_.split(""))
+wordsRDD.collect
+
+var wordsKvRdd = wordsRDD.map((_,1))
+wordsKvRdd.collect
+
+var wordCounts = wordsKvRdd.reduceByKey(_+_)
+wordCounts.collect
+
+wordCounts.saveAsTextFile("hdfs://localhost:54310/output1")
+
+:quit
+
+stop-all.sh
+
